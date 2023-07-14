@@ -1,0 +1,29 @@
+.body-login{
+    @apply bg-[#FFE500] h-screen
+    flex justify-evenly items-center
+}
+
+.container-body{
+    @apply h-full 
+    flex justify-evenly flex-col items-center   
+}
+
+.container-login{
+    @apply w-3/4 h-[45%] bg-[#F3F2F2] rounded-3xl flex items-center justify-around flex-col
+}
+.form-login{
+    @apply flex flex-col w-4/5 gap-1 justify-center items-center
+}
+.form-login input{
+    @apply rounded-3xl h-10 w-full px-2
+}
+.form-login p {
+    @apply font-semibold text-sm text-[#524B4B] ml-2
+}
+.form-login button{
+    @apply w-1/2 h-10 font-semibold bg-[#FFE500] rounded-3xl text-lg mt-5 hover:shadow-md duration-300
+}
+
+.link{
+    @apply font-semibold text-sm text-[#524B4B] underline-offset-1 underline
+}
