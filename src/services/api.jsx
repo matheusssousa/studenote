@@ -1,7 +1,8 @@
-// import axios from "axios";
+import axios from "axios";
 
-// const Api = axios.create({
-//     baseURL: 'http://localhost:8000/api/',
-// })
+const Api = axios.create({
+    baseURL: 'http://localhost:8000/api',
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("@App:token")}` },
+})
 
-// export default Api;
+export default Api;

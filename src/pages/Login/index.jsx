@@ -1,25 +1,28 @@
 import React, { useState } from "react";
-import axios from 'axios';
 import SVG from "../../assets/SVG";
 import './styles.css';
-import Api from "../../services/api";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/Authcontext";
+
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { Login } = useAuth();
 
     const enviarDados = async (event) => {
-        event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+        event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8000/api/login', {
+            await Login({
                 email: email,
                 password: password,
             });
-
-            console.log(response.data); 
         } catch (error) {
-            console.error(error); 
+            toast.error("Email e/ou senha inválidos!", {
+                position: toast.POSITION.TOP_LEFT,
+                theme: "colored"
+            });
         }
     };
 
@@ -57,7 +60,7 @@ export default function Login() {
                         />
                         <button type="submit">Entrar</button>
                     </form>
-                    <a href="#" className="link">Cadastrar</a>
+                    <a href="/register" className="link">Cadastrar</a>
                 </div>
                 <div></div>
             </div>

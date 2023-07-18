@@ -27,3 +27,7 @@
 .link{
     @apply font-semibold text-sm text-[#524B4B] underline-offset-1 underline
 }
+
+.div{
+    @apply bg-[#EF4523]
+}
