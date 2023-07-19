@@ -1,14 +1,16 @@
-import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
+import Anotacoes from "../pages/Anotacoes";
+import Horario from "../pages/Horario";
 
 const PrivateRoutes = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route exact path="*" element={<Navigate to="/home" />} />
-                <Route exact path="/home" Component={Home} />
-            </Routes>
-        </BrowserRouter>
+        <Routes>
+            <Route exact path="*" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/notas" element={<Anotacoes />} />
+            <Route path="/horario" element={<Horario />} />
+        </Routes>
     );
 }
 

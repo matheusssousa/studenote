@@ -6,9 +6,17 @@
 
 body{
     font-family: 'Montserrat', sans-serif;
-    @apply w-full h-full
+    @apply w-full h-full bg-[#F3F2F2] 
 }
 
 :root{
     @apply min-h-screen
+}
+
+.body-page{
+    @apply px-10 py-10 min-h-[85vh]
+}
+
+.title-p{
+    @apply font-semibold text-sm text-[#524B4B]
 }

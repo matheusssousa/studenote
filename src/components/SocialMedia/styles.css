@@ -1,0 +1,12 @@
+.info-icons{
+    @apply flex items-center justify-around mt-1 gap-2 
+}
+.instagram{
+    @apply hover:text-purple-600 duration-300
+}
+.github{
+    @apply hover:text-sky-600 duration-300
+}
+.linkedin{
+    @apply hover:text-blue-800 duration-300
+}

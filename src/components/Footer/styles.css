@@ -1,0 +1,12 @@
+.footer{
+    @apply w-full h-20 flex items-center justify-center px-4 flex-col
+}
+.bar-footer{
+    @apply w-full h-px bg-[#524B4B] opacity-20
+}
+.conteudo-footer{
+    @apply w-full h-full flex items-center justify-between text-[#524B4B] font-semibold
+}
+.info{
+    @apply text-xs font-medium 
+}

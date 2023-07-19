@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 import { useAuth } from "../../context/Authcontext";
-import {CaretDown} from "@phosphor-icons/react";
+import { CaretDown, House, Note, Calendar } from "@phosphor-icons/react";
+import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
     const { Logout, userData } = useAuth();
     const [openMenuUser, setOpenMenuUser] = useState(false);
+
+    const menus = [
+        { name: "Página Inicial", link: "/home", icon: House },
+        { name: "Anotações", link: "/notas", icon: Note },
+        { name: "Horário", link: "/horario", icon: Calendar },
+    ];
 
     const LogoutUser = async (event) => {
         event.preventDefault();
@@ -37,12 +44,21 @@ export default function Navbar() {
                 </svg>
             </div>
             <div className="container-links-navbar">
-
+                {menus.map((menus) => (
+                    <NavLink
+                        to={menus.link}
+                        className={({ isActive, isPending }) =>
+                            isPending ? "link-pending" : isActive ? "link-active" : "link-pending"
+                        }
+                    >
+                        <div className="link-icon">{React.createElement(menus?.icon, { size: "24" })}</div>{menus.name}
+                    </NavLink>
+                ))}
             </div>
             <div className="container-navbar-user">
                 <button className="text-sm font-semibold hover:text-cinza duration-300 px-2 py-1 flex items-center gap-1"
                     onClick={() => setOpenMenuUser(!openMenuUser)}>
-                    Olá, {userData.name} <p><CaretDown size={15} className={!openMenuUser ? 'duration-300':'rotate-180 duration-300'}/></p>
+                    Olá, {userData.name} <p><CaretDown size={15} className={!openMenuUser ? 'duration-300' : 'rotate-180 duration-300'} /></p>
                 </button>
                 <div className={!openMenuUser ? 'hidden' : 'absolute w-44 rounded-xl p-4 bg-[#F3F2F2] shadow-md text-sm font-semibold gap-2 flex flex-col'}>
                     <button className="hover:text-[#524B4B] hover:underline duration-300 w-full">Conta</button>
