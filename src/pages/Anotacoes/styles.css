@@ -1,5 +1,5 @@
 .container-central-notes{
-    @apply w-full h-full flex gap-2
+    @apply w-full h-full flex gap-2 mt-2
 }
 .container-notes-right{
     @apply w-3/4 h-full 
@@ -8,5 +8,5 @@
     @apply w-1/4 h-full gap-2 flex flex-col
 }
 .container-categoria-disciplina{
-    @apply w-full h-1/2 border border-[#524B4B] border-opacity-20 rounded-xl p-4
+    @apply w-full h-1/2 border border-[#524B4B] border-opacity-20 rounded-xl p-4 
 }

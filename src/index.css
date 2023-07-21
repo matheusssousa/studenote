@@ -20,3 +20,39 @@ body{
 .title-p{
     @apply font-semibold text-sm text-[#524B4B]
 }
+
+
+/* Modal */
+.modal-overlay{
+    @apply fixed w-screen h-screen bg-black top-0 left-0 bg-opacity-60 backdrop-blur-sm flex justify-center items-center
+}
+.modal{
+    @apply w-1/2 h-1/2 rounded-xl bg-[#F3F2F2] shadow-md p-4
+}
+.modal-header{
+    @apply flex justify-between
+}
+.modal-form{
+    @apply w-full h-4/5
+}
+.modal-form p:not(.error-message){
+    @apply text-xs font-semibold text-[#524B4B]
+}
+.container-left input, .container-left textarea, .container-right input, .container-right textarea, .container-left select{
+    @apply p-2 text-xs w-full rounded-md
+}
+.container-top-form{
+    @apply w-full h-full flex gap-2
+}
+.container-top-form .container-right{
+    @apply w-1/2 gap-1 flex flex-col
+}
+.container-top-form .container-left{
+    @apply w-1/2 gap-1 flex flex-col
+}
+.container-bottom-form{
+    @apply flex justify-end
+}
+.error-message{
+    @apply text-xs font-semibold text-red-600
+}
