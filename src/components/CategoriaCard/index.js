@@ -1,6 +1,8 @@
+import { X } from "@phosphor-icons/react";
 import React from "react";
 
-export default function CategoriaCard(categoria) {
+export default function CategoriaCard({ categoria, onClick, categoriaSelecionada }) {
+    console.log(categoria);
     // Função para escurecer a cor hex
     const escurecerCor = (hex, percent) => {
         // Remova o símbolo '#' se estiver presente
@@ -23,12 +25,25 @@ export default function CategoriaCard(categoria) {
     };
 
     // Obtenha a cor escurecida (10% mais escura, você pode ajustar esse valor conforme necessário)
-    const escurecidoHex = escurecerCor(categoria.categoria.cor, 40);
+    const escurecidoHex = escurecerCor(categoria.cor, 40);
 
     return (
-        <div className="px-2 py-1 flex gap-1 items-center rounded-md shadow-sm" style={{ backgroundColor: `${escurecidoHex}` }}>
-            {/* <div className="w-4 h-4 rounded-full drop-shadow-md" style={{ backgroundColor: `${escurecidoHex}` }}></div> */}
-            <p className="font-semibold text-xs" style={{ color: `${categoria.categoria.cor}` }}>{categoria.categoria.nome}</p>
-        </div>
+        <button
+            type="button"
+            className={`px-2 py-1 flex gap-1 items-center rounded-md shadow-sm ${categoriaSelecionada ? "bg-[#FFE500]" : ""}`}
+            style={{ backgroundColor: `${escurecidoHex}` }}
+            onClick={() => onClick(categoria)}>
+            <p className={'font-semibold text-xs'} style={{color: `${categoria.cor}`}}>
+                {categoria.nome}
+            </p>
+            {categoriaSelecionada && (
+                <button
+                    type="button"
+                    style={{color: `${categoria.cor}`}}
+                    onClick={(e) => {e.stopPropagation();onClick(null);}}>
+                    <X size={15} weight="bold"/>
+                </button>
+            )}
+        </button>
     )
 }

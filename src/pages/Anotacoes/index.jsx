@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PlusCircle, X } from '@phosphor-icons/react';
+import { MagnifyingGlass, PlusCircle, X } from '@phosphor-icons/react';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Api from "../../services/api";
@@ -24,6 +24,10 @@ export default function Anotacoes() {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const [searchTerm, setSearchTerm] = useState('');
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
+    const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(null);
+
     const [errors, setErrors] = useState({
         nome: '',
         descricao: '',
@@ -40,8 +44,35 @@ export default function Anotacoes() {
         });
     };
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredNotas = notas.filter((nota) => {
+        const nomeCategoria = categoriaSelecionada && categoriaSelecionada.nome.toLowerCase();
+        const nomeDisciplina = disciplinaSelecionada && disciplinaSelecionada.nome.toLowerCase();
+
+        const nomeNota = nota.nome.toLowerCase();
+        const descricaoNota = nota.descricao.toLowerCase();
+
+        return (
+            nomeNota.includes(searchTerm.toLowerCase()) &&
+            descricaoNota.includes(searchTerm.toLowerCase()) &&
+            (!categoriaSelecionada || nota.categorias.some((categoria) => categoria.nome.toLowerCase() === nomeCategoria)) &&
+            (!disciplinaSelecionada || nota.disciplina.nome.toLowerCase() === nomeDisciplina)
+        );
+    });
+
+
+
+    const handleCategoriaSelect = (categoria) => {
+        setCategoriaSelecionada((prevCategoria) =>
+            prevCategoria === categoria ? null : categoria
+        );
+    };
+
     const cadastrarNota = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
 
         setErrors({
             nome: '',
@@ -118,20 +149,37 @@ export default function Anotacoes() {
                             Adicionar anotação
                         </button>
                     </div>
+                    <div className="w-full flex justify-center items-center">
+                        <input type="text" value={searchTerm} onChange={handleSearch} className="p-2 text-sm w-1/3 rounded-xl" placeholder="Pesquisar" />
+                        <MagnifyingGlass size={20} className="-translate-x-7" />
+                    </div>
                     <div className="container-central-notes">
                         <div className="container-notes-right">
-                            {notas.map((nota) => (
-                                <NotaCard key={nota.id} nota={nota} />
-                            ))}
+                            {filteredNotas.length === 0 ? (
+                                <p>Nenhum registro encontrado.</p>
+                            ) : (
+                                filteredNotas.map((nota) => (
+                                    <NotaCard key={nota.id} nota={nota} />
+                                ))
+                            )}
                         </div>
+
                         <div className="container-notes-left">
                             <div className="container-categoria-disciplina">
                                 <p className="title-p">Categorias</p>
                                 <div className="w-full h-px bg-black opacity-10 my-2"></div>
                                 <div className="flex flex-wrap gap-1">
-                                    {categorias.map((categoria) => (
-                                        <CategoriaCard key={categoria.id} categoria={categoria} />
-                                    ))}
+                                    <div className="flex flex-wrap gap-1">
+                                        {categorias.map((categoria) => (
+                                            <CategoriaCard
+                                                key={categoria.id}
+                                                categoria={categoria}
+                                                categoriaSelecionada={categoriaSelecionada === categoria}
+                                                onClick={() => handleCategoriaSelect(categoria)}
+                                            />
+                                        ))}
+                                    </div>
+
                                 </div>
                             </div>
                             <div className="container-categoria-disciplina">
@@ -139,7 +187,12 @@ export default function Anotacoes() {
                                 <div className="w-full h-px bg-black opacity-10 my-2"></div>
                                 <div className="flex flex-wrap gap-1">
                                     {disciplinas.map((disciplina) => (
-                                        <DisciplinaCard key={disciplina.id} disciplina={disciplina} />
+                                        <DisciplinaCard
+                                            key={disciplina.id}
+                                            disciplina={disciplina}
+                                            disciplinaSelecionada={disciplinaSelecionada}
+                                            onClick={(disciplina) => setDisciplinaSelecionada(disciplina)}
+                                        />
                                     ))}
                                 </div>
                             </div>
