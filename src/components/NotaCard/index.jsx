@@ -4,13 +4,13 @@ import 'moment/locale/pt-br';
 
 export default function NotaCard({ nota }) {
     return (
-        <div className="w-80 h-60 rounded-xl shadow-sm border-[#263238] border-opacity-20 border bg-[#F1F1F1] p-2">
+        <div className="w-80 h-60 rounded-xl border-[#524B4B] border-opacity-20 border bg-[#F1F1F1] p-2">
             <div>
                 <div className="flex flex-col h-10">
                     <div className="w-full flex items-center justify-between">
-                        <h1 className="font-semibold text-[#263238] text-lg">{nota.nome}</h1>
+                        <h1 className="font-semibold text-[#263238] text-lg">{nota.nome.length >= 20 ? `${nota.nome.substring(0 , 20) + '...'}` : `${nota.nome}`}</h1>
                         {nota.data_prazo ? (
-                            <p className="text-sm font-semibold text-[#263238]">{moment(nota.data_prazo).format('L')}</p>
+                            <p className="text-xs font-semibold text-[#263238]">{moment(nota.data_prazo).format('L')}</p>
                         ) : (
                             ''
                         )}

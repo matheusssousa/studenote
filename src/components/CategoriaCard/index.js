@@ -2,7 +2,6 @@ import { X } from "@phosphor-icons/react";
 import React from "react";
 
 export default function CategoriaCard({ categoria, onClick, categoriaSelecionada }) {
-    console.log(categoria);
     // Função para escurecer a cor hex
     const escurecerCor = (hex, percent) => {
         // Remova o símbolo '#' se estiver presente
