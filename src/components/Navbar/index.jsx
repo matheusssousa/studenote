@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 import { useAuth } from "../../context/Authcontext";
-import { CaretDown, House, Note, Calendar } from "@phosphor-icons/react";
+import { CaretDown, House, Note, BookmarksSimple, BookBookmark} from "@phosphor-icons/react";
 import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
@@ -11,7 +11,8 @@ export default function Navbar() {
     const menus = [
         { name: "Página Inicial", link: "/home", icon: House },
         { name: "Anotações", link: "/notas", icon: Note },
-        { name: "Horário", link: "/horario", icon: Calendar },
+        { name: "Categorias", link: "/categorias", icon: BookmarksSimple },
+        { name: "Disciplinas", link: "/disciplinas", icon: BookBookmark },
     ];
 
     const LogoutUser = async (event) => {

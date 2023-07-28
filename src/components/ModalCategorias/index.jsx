@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X } from '@phosphor-icons/react';
 import Api from "../../services/api";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function AddCategorias({ showModal, setShowModal }) {
+export default function AddCategorias({ setShowModal, categoria, showModal }) {
+    // console.log(showModal);
     const [nome, setNome] = useState('');
     const [color, setColor] = useState('#rrggbb');
+
+    useEffect(() => {
+        if (showModal === 'Edit' && categoria) {
+            setNome(categoria.nome);
+            setColor(categoria.cor);
+        }
+    }, [showModal, categoria])
 
     const cadastrarCategoria = (event) => {
         event.preventDefault();
@@ -19,28 +27,53 @@ export default function AddCategorias({ showModal, setShowModal }) {
             return;
         }
 
-        Api.post('/categoria', {
-            nome: nome,
-            cor: color,
-        })
-            .then(function (response) {
-                console.log(response);
-                toast.success("Categoria adicionada com sucesso!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored"
-                });
-                setNome('');
-                setColor('rrggbb');
-
-                setShowModal(false);
+        if (showModal === 'Edit') {
+            Api.put(`/categoria/${categoria.id}`, {
+                nome: nome,
+                cor: color,
             })
-            .catch(function (error) {
-                console.error(error);
-                toast.error("Erro ao cadastrar categoria. Verifique os dados e tente novamente.", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored"
+                .then(function (response) {
+                    console.log(response);
+                    toast.success("Categoria atualizada com sucesso!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                    setNome('');
+                    setColor('rrggbb');
+
+                    setShowModal(false);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    toast.error("Erro ao atualizar categoria. Verifique os dados e tente novamente.", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
                 });
-            });
+        } else {
+            Api.post('/categoria', {
+                nome: nome,
+                cor: color,
+            })
+                .then(function (response) {
+                    console.log(response);
+                    toast.success("Categoria adicionada com sucesso!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                    setNome('');
+                    setColor('rrggbb');
+
+                    setShowModal(false);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    toast.error("Erro ao cadastrar categoria. Verifique os dados e tente novamente.", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                });
+        }
     }
     return (
         <div className="modal-overlay">
@@ -57,18 +90,18 @@ export default function AddCategorias({ showModal, setShowModal }) {
                             type="text"
                             name="nome"
                             value={nome}
-                            onChange={(event) => setNome(event.target.value)} 
-                            className="p-2 text-xs w-1/3 rounded-md"/>
+                            onChange={(event) => setNome(event.target.value)}
+                            className="p-2 text-xs w-1/3 rounded-md" />
                         <p>Cor *</p>
                         <input
                             name="color"
                             type="color"
                             value={color}
-                            onChange={(event) => setColor(event.target.value)} 
-                            className="rounded-md h-[4vh] w-1/4 cursor-pointer"/>
+                            onChange={(event) => setColor(event.target.value)}
+                            className="rounded-md h-[4vh] w-1/4 cursor-pointer" />
                     </div>
                     <div className="container-bottom-form">
-                        <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">Adicionar</button>
+                        <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">{showModal === 'Edit' ? 'Atualizar' : 'Adicionar'}</button>
                     </div>
                 </form>
             </div>

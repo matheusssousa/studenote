@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X } from '@phosphor-icons/react';
 import Api from "../../services/api";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function AddDisciplinas({ showModal, setShowModal }) {
+export default function AddDisciplinas({ showModal, setShowModal, disciplina }) {
     const [nome, setNome] = useState('');
+
+    useEffect(() => {
+        if (showModal === 'Edit' && disciplina) {
+            setNome(disciplina.nome);
+        }
+    }, [showModal, disciplina])
 
     const cadastrarDisciplinas = (event) => {
         event.preventDefault();
@@ -18,26 +24,49 @@ export default function AddDisciplinas({ showModal, setShowModal }) {
             return;
         }
 
-        Api.post('/disciplina', {
-            nome: nome,
-        })
-            .then(function (response) {
-                console.log(response);
-                toast.success("Disciplina adicionada com sucesso!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored"
-                });
-                setNome('');
-
-                setShowModal(false);
+        if (showModal === 'Edit') {
+            Api.put(`/disciplina/${disciplina.id}`, {
+                nome: nome,
             })
-            .catch(function (error) {
-                console.error(error);
-                toast.error("Erro ao cadastrar disciplina. Verifique os dados e tente novamente.", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored"
+                .then(function (response) {
+                    console.log(response);
+                    toast.success("Disciplina atualizada com sucesso!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                    setNome('');
+
+                    setShowModal(false);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    toast.error("Erro ao atualizar disciplina. Verifique os dados e tente novamente.", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
                 });
-            });
+        } else {
+            Api.post('/disciplina', {
+                nome: nome,
+            })
+                .then(function (response) {
+                    console.log(response);
+                    toast.success("Disciplina adicionada com sucesso!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                    setNome('');
+
+                    setShowModal(false);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    toast.error("Erro ao cadastrar disciplina. Verifique os dados e tente novamente.", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                });
+        }
     }
     return (
         <div className="modal-overlay">
@@ -54,10 +83,10 @@ export default function AddDisciplinas({ showModal, setShowModal }) {
                             type="text"
                             name="nome"
                             value={nome}
-                            onChange={(event) => setNome(event.target.value)} 
-                            className="w-full p-2 rounded-md text-xs"/>
+                            onChange={(event) => setNome(event.target.value)}
+                            className="w-full p-2 rounded-md text-xs" />
                         <div className="container-bottom-form mt-2">
-                            <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">Adicionar</button>
+                            <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">{showModal === 'Edit' ? 'Atualizar' : 'Adicionar'}</button>
                         </div>
                     </div>
                 </form>
