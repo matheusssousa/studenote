@@ -115,6 +115,7 @@ export default function Anotacoes() {
                                                     categoria={categoria}
                                                     categoriaSelecionada={categoriaSelecionada === categoria}
                                                     onClick={() => handleCategoriaSelect(categoria)}
+                                                    filter={true}
                                                 />
                                             )))
                                         }
