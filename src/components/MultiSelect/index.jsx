@@ -7,7 +7,11 @@ export default function MultiSelect({ categorias, categoriaSelect, setCategoriaS
     const handleAdd = (valueSelect) => {
         const selectedCategoria = categorias.find((categoria) => categoria.id == valueSelect);
 
-        if (selectedCategoria && !categoriaSelect.includes(selectedCategoria)) {
+        if (!selectedCategoria) {
+            return;
+        }
+
+        if (!categoriaSelect.some((categoria) => categoria.id === selectedCategoria.id)) {
             const tempArray = [...categoriaSelect];
             tempArray.push(selectedCategoria);
             setCategoriaSelect(tempArray);
@@ -23,7 +27,7 @@ export default function MultiSelect({ categorias, categoriaSelect, setCategoriaS
     };
 
     return (
-        <div>
+        <div className="w-full">
             <select
                 name="categoria"
                 id="select"

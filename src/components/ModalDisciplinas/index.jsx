@@ -41,7 +41,7 @@ export default function AddDisciplinas({ showModal, setShowModal }) {
     }
     return (
         <div className="modal-overlay">
-            <div className="modal">
+            <div className="w-1/3 h-1/6 bg-[#F1F1F1] rounded-lg p-4">
                 <div className="modal-header">
                     <h1 className="font-semibold text-2xl text-[#524B4B]">Adicionar disciplina</h1>
                     <button onClick={() => setShowModal(false)} className="text-[#524B4B] backdrop-blur-sm hover:backdrop-blur-md duration-300"><X size={25} /></button>
@@ -54,8 +54,9 @@ export default function AddDisciplinas({ showModal, setShowModal }) {
                             type="text"
                             name="nome"
                             value={nome}
-                            onChange={(event) => setNome(event.target.value)} />
-                        <div className="container-bottom-form">
+                            onChange={(event) => setNome(event.target.value)} 
+                            className="w-full p-2 rounded-md text-xs"/>
+                        <div className="container-bottom-form mt-2">
                             <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">Adicionar</button>
                         </div>
                     </div>

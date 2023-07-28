@@ -3,6 +3,7 @@ import SVG from "../../assets/SVG";
 import './styles.css';
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/Authcontext";
+import { Navigate } from "react-router-dom";
 
 
 export default function Login() {
@@ -18,6 +19,7 @@ export default function Login() {
                 email: email,
                 password: password,
             });
+            <Navigate to="/home"/>
         } catch (error) {
             toast.error("Email e/ou senha inválidos!", {
                 position: toast.POSITION.TOP_LEFT,

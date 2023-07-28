@@ -1,10 +1,11 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/Authcontext";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
 import { ToastContainer } from "react-toastify";
 import Footer from "../components/Footer";
+import { useEffect } from "react";
 
 const contextClass = {
     success: "bg-blue-600",
@@ -17,10 +18,14 @@ const contextClass = {
 
 
 const Routes = () => {
+    const location = useLocation();
+    useEffect(() => {
+
+    }, [location]);
     const { userAuthenticated } = useAuth();
     if (userAuthenticated)
         return (
-            <BrowserRouter>
+            <>
                 <ToastContainer
                     toastClassName={({ type }) => contextClass[type || "default"] +
                         " relative flex p-1 min-h-10 rounded-md justify-between cursor-pointer"
@@ -28,14 +33,14 @@ const Routes = () => {
                     bodyClassName={() => "text-sm font-white font-med block p-3 flex font-semibold"}
                     autoClose={3000}
                 />
-                <Navbar/>
+                <Navbar />
                 <PrivateRoutes />
-                <Footer/>
-            </BrowserRouter>
+                <Footer />
+            </>
         )
     else
         return (
-            <BrowserRouter>
+            <>
                 <ToastContainer
                     toastClassName={({ type }) => contextClass[type || "default"] +
                         " relative flex p-1 min-h-10 rounded-md justify-between cursor-pointer"
@@ -44,7 +49,7 @@ const Routes = () => {
                     autoClose={3000}
                 />
                 <PublicRoutes />
-            </BrowserRouter>
+            </>
         )
 }
 

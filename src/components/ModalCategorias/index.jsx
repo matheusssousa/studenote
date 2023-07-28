@@ -44,29 +44,31 @@ export default function AddCategorias({ showModal, setShowModal }) {
     }
     return (
         <div className="modal-overlay">
-            <div className="modal">
+            <div className="w-1/3 h-1/6 bg-[#F1F1F1] rounded-lg p-4">
                 <div className="modal-header">
                     <h1 className="font-semibold text-2xl text-[#524B4B]">Adicionar categoria</h1>
                     <button onClick={() => setShowModal(false)} className="text-[#524B4B] backdrop-blur-sm hover:backdrop-blur-md duration-300"><X size={25} /></button>
                 </div>
                 <div className="w-full h-px bg-black opacity-10 my-2"></div>
-                <form className="modal-form" onSubmit={cadastrarCategoria}>
-                    <div className="">
+                <form className="w-full" onSubmit={cadastrarCategoria}>
+                    <div className="min-h-[5vh] flex text-sm font-semibold text-[#524B4B] items-center gap-2">
                         <p>Nome *</p>
                         <input
                             type="text"
                             name="nome"
                             value={nome}
-                            onChange={(event) => setNome(event.target.value)} />
+                            onChange={(event) => setNome(event.target.value)} 
+                            className="p-2 text-xs w-1/3 rounded-md"/>
                         <p>Cor *</p>
                         <input
                             name="color"
                             type="color"
                             value={color}
-                            onChange={(event) => setColor(event.target.value)} />
-                        <div className="container-bottom-form">
-                            <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">Adicionar</button>
-                        </div>
+                            onChange={(event) => setColor(event.target.value)} 
+                            className="rounded-md h-[4vh] w-1/4 cursor-pointer"/>
+                    </div>
+                    <div className="container-bottom-form">
+                        <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">Adicionar</button>
                     </div>
                 </form>
             </div>

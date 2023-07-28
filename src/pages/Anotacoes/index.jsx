@@ -90,10 +90,10 @@ export default function Anotacoes() {
                     <div className="container-central-notes">
                         <div className="container-notes-right">
                             {filteredNotas.length === 0 ? (
-                                <p>Nenhum registro encontrado.</p>
+                                <p className="text-center text-sm font-semibold text-[#524B4B]">Nenhuma anotação encontrada.</p>
                             ) : (
                                 filteredNotas.map((nota) => (
-                                    <NotaCard key={nota.id} nota={nota} />
+                                    <NotaCard key={nota.id} nota={nota} categorias={categorias} disciplinas={disciplinas} />
                                 ))
                             )}
                         </div>
@@ -107,15 +107,17 @@ export default function Anotacoes() {
                                 </div>
                                 <div className="w-full h-px bg-black opacity-10 my-2"></div>
                                 <div className="flex flex-wrap gap-1">
-                                    <div className="flex flex-wrap gap-1">
-                                        {categorias.map((categoria) => (
-                                            <CategoriaCard
-                                                key={categoria.id}
-                                                categoria={categoria}
-                                                categoriaSelecionada={categoriaSelecionada === categoria}
-                                                onClick={() => handleCategoriaSelect(categoria)}
-                                            />
-                                        ))}
+                                    <div className="flex flex-wrap gap-1 text-xs font-semibold text-[#524B4B]">
+                                        {categorias.length == 0 ? 'Você não possui categorias cadastradas.' :
+                                            (categorias.map((categoria) => (
+                                                <CategoriaCard
+                                                    key={categoria.id}
+                                                    categoria={categoria}
+                                                    categoriaSelecionada={categoriaSelecionada === categoria}
+                                                    onClick={() => handleCategoriaSelect(categoria)}
+                                                />
+                                            )))
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -127,15 +129,17 @@ export default function Anotacoes() {
                                     </button>
                                 </div>
                                 <div className="w-full h-px bg-black opacity-10 my-2"></div>
-                                <div className="flex flex-wrap gap-1">
-                                    {disciplinas.map((disciplina) => (
-                                        <DisciplinaCard
-                                            key={disciplina.id}
-                                            disciplina={disciplina}
-                                            disciplinaSelecionada={disciplinaSelecionada === disciplina}
-                                            onClick={() => handleDisciplinaSelect(disciplina)}
-                                        />
-                                    ))}
+                                <div className="flex flex-wrap gap-1 text-xs font-semibold text-[#524B4B]">
+                                    {disciplinas.length == 0 ? 'Você não possui disciplinas cadastradas.' :
+                                        (disciplinas.map((disciplina) => (
+                                            <DisciplinaCard
+                                                key={disciplina.id}
+                                                disciplina={disciplina}
+                                                disciplinaSelecionada={disciplinaSelecionada === disciplina}
+                                                onClick={() => handleDisciplinaSelect(disciplina)}
+                                            />
+                                        )))
+                                    }
                                 </div>
                             </div>
                         </div>

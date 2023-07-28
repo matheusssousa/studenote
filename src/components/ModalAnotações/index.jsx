@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X } from '@phosphor-icons/react';
 import Api from "../../services/api";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import MultiSelect from "../../components/MultiSelect";
 
-const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas }) => {
+const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota }) => {
+    // console.log(nota)
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [date, setDate] = useState('');
     const [disciplina, setDisciplina] = useState('');
     const [categoriaSelect, setCategoriaSelect] = useState([]);
     const [submitting, setSubmitting] = useState(false);
+
+    useEffect(() => {
+        if (showModal === 'Edit' && nota) {
+            setNome(nota.nome);
+            setDescricao(nota.descricao);
+            setDate(nota.data_prazo);
+            setDisciplina(nota.disciplina.id);
+            setCategoriaSelect(nota.categorias);
+        }
+    }, [showModal, nota])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -28,39 +39,76 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas }) => {
 
         const categoriasSelectIds = categoriaSelect.map((categoria) => categoria.id);
 
-        Api.post('/notas', {
-            nome: nome,
-            descricao: descricao,
-            data_prazo: date,
-            disciplina_id: disciplina,
-            categorias: categoriasSelectIds,
-        })
-            .then(function (response) {
-                console.log(response);
-                toast.success("Nota adicionada com sucesso!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored"
-                });
-                setNome('');
-                setDescricao('');
-                setDate('');
-                setDisciplina('');
-                setCategoriaSelect([]);
-
-                setShowModal(false);
-
-                window.location.reload();
+        if (showModal === 'Edit') {
+            Api.put(`/notas/${nota.id}`, {
+                nome: nome,
+                descricao: descricao,
+                data_prazo: date,
+                disciplina_id: disciplina,
+                categorias: categoriasSelectIds,
             })
-            .catch(function (error) {
-                console.error(error);
-                toast.error("Erro ao cadastrar nota. Verifique os dados e tente novamente.", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    theme: "colored"
+                .then(function (response) {
+                    console.log(response);
+                    toast.success("Nota adicionada com sucesso!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                    setNome('');
+                    setDescricao('');
+                    setDate('');
+                    setDisciplina('');
+                    setCategoriaSelect([]);
+
+                    setShowModal(false);
+
+                    window.location.reload();
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    // console.error(error);
+                    toast.error("Erro ao cadastrar nota. Verifique os dados e tente novamente.", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                })
+                .finally(() => {
+                    setSubmitting(false);
                 });
+        } else {
+            Api.post('/notas', {
+                nome: nome,
+                descricao: descricao,
+                data_prazo: date,
+                disciplina_id: disciplina,
+                categorias: categoriasSelectIds,
             })
-            .finally(() => {
-                setSubmitting(false);
-            });
+                .then(function (response) {
+                    console.log(response);
+                    toast.success("Nota adicionada com sucesso!", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                    setNome('');
+                    setDescricao('');
+                    setDate('');
+                    setDisciplina('');
+                    setCategoriaSelect([]);
+
+                    setShowModal(false);
+
+                    // window.location.reload();
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    toast.error("Erro ao cadastrar nota. Verifique os dados e tente novamente.", {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: "colored"
+                    });
+                })
+                .finally(() => {
+                    setSubmitting(false);
+                });
+        }
     };
 
     return (
@@ -72,7 +120,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas }) => {
                         <button onClick={() => setShowModal(false)} className="text-[#524B4B] backdrop-blur-sm hover:backdrop-blur-md duration-300"><X size={25} /></button>
                     </div>
                     <div className="w-full h-px bg-black opacity-10 my-2"></div>
-                    <form className="modal-form" onSubmit={handleSubmit}>
+                    <form className="modal-form" onSubmit={(e) => handleSubmit(e)}>
                         <div className="container-top-form">
                             <div className="container-right">
                                 <p>Nome *</p>
@@ -116,7 +164,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas }) => {
                             </div>
                         </div>
                         <div className="container-bottom-form">
-                            <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">Adicionar</button>
+                            <button type="submit" className="px-2 py-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300">{showModal === 'Edit' ? 'Atualizar':'Adicionar'}</button>
                         </div>
                     </form>
                 </div>

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function ListCategorias({ categorias, categoriaSelect, handleRemove }) {
     return (
-        <div className={!categoriaSelect.length ? 'none':'flex gap-1 w-full mt-1'}>
+        <div className={!categoriaSelect.length ? 'none':'flex gap-1 w-full mt-1 flex-wrap'}>
             {categoriaSelect.map((categoria, i) => (
                 <button
                     type="button"
