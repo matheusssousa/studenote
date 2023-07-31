@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 import { useAuth } from "../../context/Authcontext";
-import { CaretDown, House, Note, BookmarksSimple, BookBookmark} from "@phosphor-icons/react";
+import { CaretDown, House, Note, BookmarksSimple, BookBookmark } from "@phosphor-icons/react";
 import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
@@ -45,8 +45,9 @@ export default function Navbar() {
                 </svg>
             </div>
             <div className="container-links-navbar">
-                {menus.map((menus) => (
+                {menus.map((menus, i) => (
                     <NavLink
+                        key={i}
                         to={menus.link}
                         className={({ isActive, isPending }) =>
                             isPending ? "link-pending" : isActive ? "link-active" : "link-pending"

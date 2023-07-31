@@ -1,5 +1,5 @@
 import { X } from "@phosphor-icons/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCategorias from "../ModalCategorias";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -25,7 +25,7 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "colored"
                 });
-                window.location.reload();
+                // window.location.reload();
             })
             .catch(function (error) {
                 console.error(error);
@@ -60,24 +60,44 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
     };
 
     // Obtenha a cor escurecida (10% mais escura, você pode ajustar esse valor conforme necessário)
-    const escurecidoHex = escurecerCor(categoria.cor, 40);
+    const escurecidoHex = escurecerCor(categoria.cor, 55);
+
+    // useEffect(() => {
+    //     DeleteCategoria();
+    // }, []);
 
     return (
         !filter ? <>
-            <div className="w-[15%] h-24 flex flex-col border border-[#524B4B] rounded-lg boreder-opacity-20 gap-2 pb-2 shadow-sm" key={categoria.id}>
-                <div className="w-full h-10 rounded-t-lg shadow-sm" style={{ backgroundColor: `${categoria.cor}` }}></div>
-                <div className="w-full flex flex-col items-center justify-center gap-3 h-10">
-                    <p className="text-sm font-semibold text-[#524B4B]">{categoria.nome}</p>
-                    <div className="w-full flex justify-center">
-                        <button onClick={() => DeleteCategoria(categoria.id)} className="font-semibold text-sm text-[#263238] drop-shadow-md hover:text-red-600 duration-300">
-                            <TrashSimple size={20} />
-                        </button>
-                        <div className="w-px h-full bg-black mx-2"></div>
-                        <button onClick={() => modalType('Edit')} className="font-semibold text-sm text-[#263238] drop-shadow-md hover:text-blue-600 duration-300">
-                            <PencilSimple size={20} />
-                        </button>
-                    </div>
+            <div className={`w-[15%] h-24 flex rounded-lg gap-2 shadow-md p-3 items-center justify-evenly`} style={{ backgroundColor: `${escurecidoHex}` }} key={categoria.id}>
+                <p className="font-semibold text-sm" style={{ color: `${categoria.cor}` }}>{categoria.nome}</p>
+                <div className="w-px h-full" style={{ backgroundColor: `${categoria.cor}` }}></div>
+                <div className=" flex flex-col gap-3">
+                    <button onClick={() => modalType('Delete')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}` }}>
+                        <TrashSimple size={20} />
+                    </button>
+                    <button onClick={() => modalType('Edit')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}` }}>
+                        <PencilSimple size={20} />
+                    </button>
                 </div>
+                {showModal === 'Delete' && (
+                    <div className="modal-overlay z-10">
+                        <div className="w-1/3 h-1/6 bg-[#F1F1F1] rounded-lg p-4">
+                            <h1 className="text-xl font-semibold text-[#263238] text-center">Excluir <i>{categoria.nome}</i></h1>
+                            <div className="w-full h-px bg-black opacity-10 my-2"></div>
+                            <div className="flex h-2/3 w-full flex-col justify-between">
+                                <p className="text-sm font-semibold text-[#263238]">Tem certeza que deseja excluir esta categoria?</p>
+                                <div className="flex justify-end gap-2">
+                                    <button className="font-semibold text-sm text-[#263238] bg-slate-300 rounded-md px-2 shadow-sm hover:shadow-md py-1 duration-300 hover:text-slate-50" onClick={() => setShowModal(false)}>
+                                        Cancelar
+                                    </button>
+                                    <button onClick={DeleteCategoria(categoria.id)} className="font-semibold text-sm text-[#263238] bg-red-600 rounded-md px-2 shadow-sm hover:shadow-md py-1 duration-300 hover:text-slate-50">
+                                        Confirmar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {showModal === 'Edit' && (
                     <AddCategorias
                         showModal={showModal}

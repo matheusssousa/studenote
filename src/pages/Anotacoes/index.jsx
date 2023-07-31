@@ -137,6 +137,7 @@ export default function Anotacoes() {
                                                 key={disciplina.id}
                                                 disciplina={disciplina}
                                                 disciplinaSelecionada={disciplinaSelecionada === disciplina}
+                                                filter={true}
                                                 onClick={() => handleDisciplinaSelect(disciplina)}
                                             />
                                         )))

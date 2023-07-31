@@ -1,16 +1,15 @@
 import "react-toastify/dist/ReactToastify.css";
 import './index.css';
 import { AuthProvider } from "./context/Authcontext";
-import Routes from "./routes/routes";
+import Router from "./routes/routes";
 import { BrowserRouter } from "react-router-dom";
+import MyRoutes from "./routes/MyRoute";
 
 function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes/>
-      </AuthProvider>
+        <MyRoutes/>
     </BrowserRouter>
   );
 }

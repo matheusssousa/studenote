@@ -1,11 +1,13 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import Api from '../services/api';
+import Loading from '../components/Loading';
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [userAuthenticated, setUserAuthenticated] = useState(false);
     const [userData, setUserData] = useState([]);
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const storagedToken = sessionStorage.getItem('@App:token');
@@ -18,7 +20,11 @@ export const AuthProvider = ({ children }) => {
                 setUserData(response.data);
             }).catch((error) => {
                 console.log(error)
+            }) .finally(() => {
+                setLoading(false); // Defina o carregamento como falso após a conclusão da chamada à API
             });
+        } else {
+            setLoading(false); // Defina o carregamento como falso se não houver token
         }
     }, []);
 
@@ -44,7 +50,9 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{ Login, Logout, userAuthenticated, userData}}
         >
-            {children}
+             {!loading ? ( // Renderize os filhos somente quando o carregamento for falso
+                children
+            ) : ''}
         </AuthContext.Provider>
     );
 };
