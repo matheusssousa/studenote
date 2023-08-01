@@ -45,7 +45,13 @@ export default function AddCategorias({ setShowModal, categoria, showModal, onCa
                     onCategoriaChange();
                 })
                 .catch(function (error) {
-                    console.error(error);
+                    if (error.response.data.message.includes("The nome has already been taken.")) {
+                        toast.error("Essa categoria já existe, tente novamente.", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: "colored"
+                        });
+                        return
+                    }
                     toast.error("Erro ao atualizar categoria. Verifique os dados e tente novamente.", {
                         position: toast.POSITION.TOP_RIGHT,
                         theme: "colored"
@@ -64,12 +70,18 @@ export default function AddCategorias({ setShowModal, categoria, showModal, onCa
                     });
                     setNome('');
                     setColor('rrggbb');
-                    
+
                     setShowModal(false);
                     onCategoriaChange();
                 })
                 .catch(function (error) {
-                    console.error(error);
+                    if (error.response.data.message.includes("The nome has already been taken.")) {
+                        toast.error("Essa categoria já existe, tente novamente.", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: "colored"
+                        });
+                        return
+                    }
                     toast.error("Erro ao cadastrar categoria. Verifique os dados e tente novamente.", {
                         position: toast.POSITION.TOP_RIGHT,
                         theme: "colored"

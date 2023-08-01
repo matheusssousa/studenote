@@ -55,11 +55,14 @@ export default function Anotacoes() {
 
     const fetchCategoriaDisciplinasNotas = async () => {
         setLoading(true);
-        const res_categoria = await Api.get('categoria');
+        const [res_categoria, res_disciplina, res_notas] = await Promise.all([
+            Api.get('categoria'),
+            Api.get('disciplina'),
+            Api.get('notas')
+        ]);
+
         setCategorias(res_categoria.data);
-        const res_disciplina = await Api.get('disciplina');
         setDisciplinas(res_disciplina.data);
-        const res_notas = await Api.get('notas');
         setNotas(res_notas.data);
         setLoading(false);
     };
@@ -82,14 +85,14 @@ export default function Anotacoes() {
                 <>
                     <div className="header-page flex justify-between">
                         <h1 className="font-semibold text-2xl text-[#524B4B]">Minhas Anotações</h1>
+                        <div className=" w-3/4 flex justify-center items-center">
+                            <input type="text" value={searchTerm} onChange={handleSearch} className="p-2 text-sm w-1/3 rounded-xl" placeholder="Pesquisar anotação" />
+                            <MagnifyingGlass size={20} className="-translate-x-7" />
+                        </div>
                         <button className="flex px-2 py-2 gap-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300" onClick={() => openModal('modalAnotacoes')}>
                             <PlusCircle size={20} />
                             Adicionar anotação
                         </button>
-                    </div>
-                    <div className="w-full flex justify-center items-center">
-                        <input type="text" value={searchTerm} onChange={handleSearch} className="p-2 text-sm w-1/3 rounded-xl" placeholder="Pesquisar" />
-                        <MagnifyingGlass size={20} className="-translate-x-7" />
                     </div>
                     <div className="container-central-notes">
                         <div className="container-notes-right">
@@ -169,12 +172,14 @@ export default function Anotacoes() {
                         <AddCategorias
                             showModal={showModal === 'modalCategorias'}
                             setShowModal={setShowModal}
+                            onCategoriaChange={handleAnotacoesChange}
                         />
                     )}
                     {showModal === 'modalDisciplinas' && (
                         <AddDisciplinas
                             showModal={showModal === 'modalDisciplinas'}
                             setShowModal={setShowModal}
+                            onDisciplinasChange={handleAnotacoesChange}
                         />
                     )}
                 </>

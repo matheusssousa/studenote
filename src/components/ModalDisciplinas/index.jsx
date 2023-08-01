@@ -40,7 +40,13 @@ export default function AddDisciplinas({ showModal, setShowModal, disciplina, on
                     onDisciplinasChange();
                 })
                 .catch(function (error) {
-                    console.error(error);
+                    if (error.response.data.message.includes("The nome has already been taken.")) {
+                        toast.error("Essa disciplina já existe, tente novamente.", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: "colored"
+                        });
+                        return
+                    }
                     toast.error("Erro ao atualizar disciplina. Verifique os dados e tente novamente.", {
                         position: toast.POSITION.TOP_RIGHT,
                         theme: "colored"
@@ -62,7 +68,13 @@ export default function AddDisciplinas({ showModal, setShowModal, disciplina, on
                     onDisciplinasChange();
                 })
                 .catch(function (error) {
-                    console.error(error);
+                    if (error.response.data.message.includes("The nome has already been taken.")) {
+                        toast.error("Essa disciplina já existe, tente novamente.", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            theme: "colored"
+                        });
+                        return
+                    }
                     toast.error("Erro ao cadastrar disciplina. Verifique os dados e tente novamente.", {
                         position: toast.POSITION.TOP_RIGHT,
                         theme: "colored"
