@@ -53,24 +53,28 @@ export default function Anotacoes() {
         );
     };
 
-    useEffect(() => {
-        const fetchCategoriaDisciplinasNotas = async () => {
-            setLoading(true);
-            const res_categoria = await Api.get('categoria');
-            setCategorias(res_categoria.data);
-            const res_disciplina = await Api.get('disciplina');
-            setDisciplinas(res_disciplina.data);
-            const res_notas = await Api.get('notas');
-            setNotas(res_notas.data);
-            setLoading(false);
-        };
+    const fetchCategoriaDisciplinasNotas = async () => {
+        setLoading(true);
+        const res_categoria = await Api.get('categoria');
+        setCategorias(res_categoria.data);
+        const res_disciplina = await Api.get('disciplina');
+        setDisciplinas(res_disciplina.data);
+        const res_notas = await Api.get('notas');
+        setNotas(res_notas.data);
+        setLoading(false);
+    };
+
+    const handleAnotacoesChange = () => {
         fetchCategoriaDisciplinasNotas();
-    }, []);
+    }
 
     const openModal = (tipoModal) => {
         setShowModal(tipoModal);
     };
 
+    useEffect(() => {
+        fetchCategoriaDisciplinasNotas();
+    }, []);
 
     return (
         <div className="body-page">
@@ -93,7 +97,13 @@ export default function Anotacoes() {
                                 <p className="text-center text-sm font-semibold text-[#524B4B]">Nenhuma anotação encontrada.</p>
                             ) : (
                                 filteredNotas.map((nota) => (
-                                    <NotaCard key={nota.id} nota={nota} categorias={categorias} disciplinas={disciplinas} />
+                                    <NotaCard
+                                        key={nota.id}
+                                        nota={nota}
+                                        categorias={categorias}
+                                        disciplinas={disciplinas}
+                                        onAnotacoesChange={handleAnotacoesChange}
+                                    />
                                 ))
                             )}
                         </div>
@@ -152,6 +162,7 @@ export default function Anotacoes() {
                             setShowModal={setShowModal}
                             categorias={categorias}
                             disciplinas={disciplinas}
+                            onAnotacoesChange={handleAnotacoesChange}
                         />
                     )}
                     {showModal === 'modalCategorias' && (

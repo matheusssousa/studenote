@@ -4,7 +4,7 @@ import Api from "../../services/api";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function AddCategorias({ setShowModal, categoria, showModal }) {
+export default function AddCategorias({ setShowModal, categoria, showModal, onCategoriaChange }) {
     // console.log(showModal);
     const [nome, setNome] = useState('');
     const [color, setColor] = useState('#rrggbb');
@@ -42,6 +42,7 @@ export default function AddCategorias({ setShowModal, categoria, showModal }) {
                     setColor('rrggbb');
 
                     setShowModal(false);
+                    onCategoriaChange();
                 })
                 .catch(function (error) {
                     console.error(error);
@@ -63,8 +64,9 @@ export default function AddCategorias({ setShowModal, categoria, showModal }) {
                     });
                     setNome('');
                     setColor('rrggbb');
-
+                    
                     setShowModal(false);
+                    onCategoriaChange();
                 })
                 .catch(function (error) {
                     console.error(error);

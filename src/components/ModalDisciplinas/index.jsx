@@ -4,7 +4,7 @@ import Api from "../../services/api";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function AddDisciplinas({ showModal, setShowModal, disciplina }) {
+export default function AddDisciplinas({ showModal, setShowModal, disciplina, onDisciplinasChange }) {
     const [nome, setNome] = useState('');
 
     useEffect(() => {
@@ -37,6 +37,7 @@ export default function AddDisciplinas({ showModal, setShowModal, disciplina }) 
                     setNome('');
 
                     setShowModal(false);
+                    onDisciplinasChange();
                 })
                 .catch(function (error) {
                     console.error(error);
@@ -58,6 +59,7 @@ export default function AddDisciplinas({ showModal, setShowModal, disciplina }) 
                     setNome('');
 
                     setShowModal(false);
+                    onDisciplinasChange();
                 })
                 .catch(function (error) {
                     console.error(error);

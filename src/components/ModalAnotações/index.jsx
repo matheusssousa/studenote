@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import MultiSelect from "../../components/MultiSelect";
 
-const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota }) => {
+const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota , onAnotacoesChange}) => {
     // console.log(nota)
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
@@ -60,8 +60,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota }
                     setCategoriaSelect([]);
 
                     setShowModal(false);
-
-                    window.location.reload();
+                    onAnotacoesChange();
                 })
                 .catch(function (error) {
                     console.log(error.response.data);
@@ -95,8 +94,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota }
                     setCategoriaSelect([]);
 
                     setShowModal(false);
-
-                    // window.location.reload();
+                    onAnotacoesChange();
                 })
                 .catch(function (error) {
                     console.error(error);

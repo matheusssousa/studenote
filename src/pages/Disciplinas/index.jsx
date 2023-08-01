@@ -8,25 +8,31 @@ import DisciplinaCard from "../../components/DisciplinaCard";
 export default function Disciplinas() {
     const [loading, setLoading] = useState(false);
     const [disciplinas, setDisciplinas] = useState([]);
-    const [showModal, setShowModal] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        const fetchDisciplinas = async () => {
-            setLoading(true);
-            const res_disciplina = await Api.get('disciplina');
-            setDisciplinas(res_disciplina.data);
-            setLoading(false);
-        };
-        fetchDisciplinas();
-    }, [])
-
+    const fetchDisciplinas = async () => {
+        setLoading(true);
+        const res_disciplina = await Api.get('disciplina');
+        setDisciplinas(res_disciplina.data);
+        setLoading(false);
+    };
+    
     const openModal = (typeModal) => {
         setShowModal(typeModal);
     }
-
+    
     const closeModal = () => {
-        setShowModal(null);
+        setShowModal(false);
     }
+    
+    const handleDisciplinasChange = () => {
+        fetchDisciplinas();
+    }
+    
+    useEffect(() => {
+        fetchDisciplinas();
+    }, [])
+
     return (
         <div className="body-page">
             {loading ? <Loading loading={loading} /> : (<>
@@ -39,13 +45,14 @@ export default function Disciplinas() {
                 </div>
                 <div className="flex flex-wrap gap-2 mt-2">
                     {disciplinas.length === 0 ? (
-                        <p>Você não possui disciplinas cadastradas.</p>
+                        <p className="text-center text-sm font-semibold text-[#524B4B]">Você não possui disciplinas cadastradas.</p>
                     ) : (
                         disciplinas.map((disciplina) => (
                             <DisciplinaCard
                                 key={disciplina.id}
                                 disciplina={disciplina}
                                 filter={false}
+                                onDisciplinasChange={handleDisciplinasChange}
                             />
                         ))
                     )}
@@ -55,6 +62,7 @@ export default function Disciplinas() {
                         showModal={showModal === 'Add'}
                         closeModal={closeModal}
                         setShowModal={setShowModal}
+                        onDisciplinasChange={handleDisciplinasChange}
                     />
                 )}
             </>)}

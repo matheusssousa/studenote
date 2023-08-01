@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation, Navigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useAuth } from "../context/Authcontext";
-
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import Home from "../pages/Home";
-import Anotacoes from "../pages/Anotacoes";
-import Categorias from "../pages/Categorias";
-import Disciplinas from "../pages/Disciplinas";
 
 import Navbar from "../components/Navbar";
 import PrivateRoutes from "./PrivateRoutes";
@@ -33,8 +26,8 @@ const MyRoutes = () => {
     }, [location]);
 
     if (UserAutheticated.userAuthenticated === true) {
-        console.log('AUTENTICADO');
-        console.log(UserAutheticated.userAuthenticated);
+        // console.log('AUTENTICADO');
+        // console.log(UserAutheticated.userAuthenticated);
         return (
             <>
                 <ToastContainer
@@ -50,9 +43,9 @@ const MyRoutes = () => {
             </>
         )
     } else {
-        console.log('NAO AUTENTICADO');
-        console.log(UserAutheticated);
-        console.log(UserAutheticated.userAuthenticated)
+        // console.log('NAO AUTENTICADO');
+        // console.log(UserAutheticated);
+        // console.log(UserAutheticated.userAuthenticated)
         return (
             <>
                 <ToastContainer

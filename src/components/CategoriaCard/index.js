@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { TrashSimple, PencilSimple } from '@phosphor-icons/react';
 import Api from "../../services/api";
 
-export default function CategoriaCard({ categoria, onClick, categoriaSelecionada, filter }) {
+export default function CategoriaCard({ categoria, onClick, categoriaSelecionada, filter, onCategoriaChange }) {
     const [showModal, setShowModal] = useState(false);
 
     const modalType = (tipoModal) => {
@@ -17,15 +17,15 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
         setShowModal(null);
     };
 
-    const DeleteCategoria = (categoria) => {
-        Api.delete(`/categoria/${categoria}`)
+    const DeleteCategoria = () => {
+        Api.delete(`/categoria/${categoria.id}`)
             .then(function (response) {
                 console.log(response);
                 toast.success("Categoria deletada com sucesso!", {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "colored"
                 });
-                // window.location.reload();
+                onCategoriaChange();
             })
             .catch(function (error) {
                 console.error(error);
@@ -34,8 +34,6 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
                     theme: "colored"
                 });
             })
-
-        setShowModal(false);
     }
 
     // Função para escurecer a cor hex
@@ -62,10 +60,6 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
     // Obtenha a cor escurecida (10% mais escura, você pode ajustar esse valor conforme necessário)
     const escurecidoHex = escurecerCor(categoria.cor, 55);
 
-    // useEffect(() => {
-    //     DeleteCategoria();
-    // }, []);
-
     return (
         !filter ? <>
             <div className={`w-[15%] h-24 flex rounded-lg gap-2 shadow-md p-3 items-center justify-evenly`} style={{ backgroundColor: `${escurecidoHex}` }} key={categoria.id}>
@@ -75,7 +69,7 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
                     <button onClick={() => modalType('Delete')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}` }}>
                         <TrashSimple size={20} />
                     </button>
-                    <button onClick={() => modalType('Edit')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}` }}>
+                    <button onClick={() => modalType('Edit')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}`}}>
                         <PencilSimple size={20} />
                     </button>
                 </div>
@@ -90,7 +84,7 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
                                     <button className="font-semibold text-sm text-[#263238] bg-slate-300 rounded-md px-2 shadow-sm hover:shadow-md py-1 duration-300 hover:text-slate-50" onClick={() => setShowModal(false)}>
                                         Cancelar
                                     </button>
-                                    <button onClick={DeleteCategoria(categoria.id)} className="font-semibold text-sm text-[#263238] bg-red-600 rounded-md px-2 shadow-sm hover:shadow-md py-1 duration-300 hover:text-slate-50">
+                                    <button onClick={DeleteCategoria} className="font-semibold text-sm text-[#263238] bg-red-600 rounded-md px-2 shadow-sm hover:shadow-md py-1 duration-300 hover:text-slate-50">
                                         Confirmar
                                     </button>
                                 </div>
@@ -104,6 +98,7 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
                         closeModal={closeModal}
                         categoria={categoria}
                         setShowModal={setShowModal}
+                        onCategoriaChange={onCategoriaChange}
                     />
                 )}
             </div>

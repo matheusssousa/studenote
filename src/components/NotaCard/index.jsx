@@ -7,7 +7,7 @@ import 'moment/locale/pt-br';
 import { PencilSimple, TrashSimple } from "@phosphor-icons/react";
 import AddNotaModal from "../ModalAnotações";
 
-export default function NotaCard({ nota , categorias, disciplinas }) {
+export default function NotaCard({ nota , categorias, disciplinas, onAnotacoesChange }) {
     const [showModal, setShowModal] = useState(false);
 
     const modalType = (tipoModal) => {
@@ -24,7 +24,7 @@ export default function NotaCard({ nota , categorias, disciplinas }) {
                     position: toast.POSITION.TOP_RIGHT,
                     theme: "colored"
                 });
-                window.location.reload();
+                onAnotacoesChange();
             })
             .catch(function (error) {
                 console.error(error);
@@ -49,12 +49,12 @@ export default function NotaCard({ nota , categorias, disciplinas }) {
                 )}
             </div>
             <div className="p-4 w-2/3 flex flex-col justify-between">
-                <div className="w-full flex gap-1">
+                <div className="w-full flex gap-1 max-h-6 min-h-2">
                     {nota.categorias.map((categoria) => (
                         <div className="w-7 h-2 rounded-full " style={{ backgroundColor: `${categoria.cor}` }}></div>
                     ))}
                 </div>
-                <p className="text-xs font-semibold text-[#263238]">{nota.descricao}</p>
+                <div className="text-xs font-semibold text-[#263238]">{nota.descricao}</div>
                 <div className="w-full flex justify-end">
                     <button onClick={() => modalType('Delete')} className="font-semibold text-sm text-[#263238] drop-shadow-md hover:text-red-600 duration-300">
                         <TrashSimple size={20} />
@@ -92,6 +92,7 @@ export default function NotaCard({ nota , categorias, disciplinas }) {
                     setShowModal={setShowModal}
                     categorias={categorias}
                     disciplinas={disciplinas}
+                    onAnotacoesChange={onAnotacoesChange}
                 />
             )}
 
