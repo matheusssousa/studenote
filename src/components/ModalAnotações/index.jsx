@@ -152,9 +152,9 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota ,
                                     name="disciplina"
                                     onChange={(event) => setDisciplina(event.target.value)}
                                     value={disciplina}
-                                    defaultValue=""
+                                    defaultValue="default"
                                 >
-                                    <option disabled value="">Selecione uma disciplina</option>
+                                    <option disabled value="default">Selecione uma disciplina</option>
                                     {disciplinas.map((disciplina) => (
                                         <option value={disciplina.id} key={disciplina.id}>{disciplina.nome}</option>
                                     ))}

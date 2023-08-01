@@ -273,8 +273,8 @@ export default function SVG(params) {
                 <path d="M606.476 307.532C604.618 307.413 602.755 307.413 600.897 307.532C593.564 307.967 586.313 309.314 579.313 311.54C576.71 312.339 574.093 313.276 571.517 314.295C570.236 314.819 568.955 315.383 567.688 315.976C561.427 318.817 555.683 322.681 550.69 327.408C548.365 329.675 546.334 332.225 544.643 334.998C544.423 335.356 544.189 335.7 543.982 336.072C543.445 337.022 542.963 337.945 542.508 338.827C538.264 346.804 536.113 355.728 536.255 364.764C536.131 371.127 537.894 378.538 539.01 379.764C539.165 379.932 539.341 380.08 539.533 380.204C541.283 381.458 544.203 380.934 549.754 378.235C560.869 372.794 565.952 357.753 565.952 357.753L551.103 354.378L570.553 351.623L579.051 339.874L564.809 336.458L584.52 334.529C591.254 325.098 598.559 316.086 606.393 307.546V307.546L606.476 307.532Z" fill="#FFFA89" />
                 <path opacity="0.05" d="M600.897 307.477C593.564 307.912 586.313 309.259 579.313 311.485C576.71 312.284 574.093 313.221 571.517 314.24C570.236 314.763 568.955 315.328 567.688 315.92C561.427 318.762 555.683 322.626 550.69 327.353C548.365 329.62 546.334 332.17 544.643 334.943C544.423 335.301 544.189 335.645 543.982 336.017C543.445 336.967 542.963 337.89 542.508 338.772C538.264 346.749 536.113 355.673 536.255 364.708C536.131 371.072 537.894 378.483 539.01 379.708C539.165 379.877 539.341 380.025 539.533 380.149C539.891 380.383 540.287 380.551 540.704 380.645C539.919 370.728 546.145 346.031 554.037 336.168C562.302 325.907 581.214 311.375 606.379 307.463C604.553 307.357 602.722 307.362 600.897 307.477V307.477Z" fill="black" />
                 <defs>
-                    <filter id="filter0_d_5_2" x="55.8845" y="94.3198" width="92.2592" height="74.5377" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <filter id="filter0_d_5_2" x="55.8845" y="94.3198" width="92.2592" height="74.5377" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                         <feOffset dx="2" dy="4" />
                         <feGaussianBlur stdDeviation="5" />
@@ -283,8 +283,8 @@ export default function SVG(params) {
                         <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_2" />
                         <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5_2" result="shape" />
                     </filter>
-                    <filter id="filter1_d_5_2" x="189.907" y="86.3752" width="74.463" height="61.1391" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <filter id="filter1_d_5_2" x="189.907" y="86.3752" width="74.463" height="61.1391" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                         <feOffset dx="2" dy="4" />
                         <feGaussianBlur stdDeviation="5" />
@@ -293,8 +293,8 @@ export default function SVG(params) {
                         <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_2" />
                         <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5_2" result="shape" />
                     </filter>
-                    <filter id="filter2_d_5_2" x="12.165" y="179.724" width="94.4506" height="76.237" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <filter id="filter2_d_5_2" x="12.165" y="179.724" width="94.4506" height="76.237" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                         <feOffset dx="2" dy="4" />
                         <feGaussianBlur stdDeviation="5" />
@@ -303,8 +303,8 @@ export default function SVG(params) {
                         <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_2" />
                         <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5_2" result="shape" />
                     </filter>
-                    <filter id="filter3_d_5_2" x="193.025" y="0" width="118.778" height="94.5528" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <filter id="filter3_d_5_2" x="193.025" y="0" width="118.778" height="94.5528" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                         <feOffset dx="2" dy="4" />
                         <feGaussianBlur stdDeviation="5" />
