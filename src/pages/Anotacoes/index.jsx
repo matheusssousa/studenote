@@ -83,51 +83,25 @@ export default function Anotacoes() {
         <div className="body-page">
             {loading ? <Loading loading={loading} /> :
                 <>
-                    <div className="header-page flex justify-between">
-                        <h1 className="font-semibold text-2xl text-[#524B4B]">Minhas Anotações</h1>
-                        <div className=" w-3/4 flex justify-center items-center">
-                            <input type="text" value={searchTerm} onChange={handleSearch} className="p-2 text-sm w-1/3 rounded-xl" placeholder="Pesquisar anotação" />
-                            <MagnifyingGlass size={20} className="-translate-x-7" />
-                        </div>
-                        <button className="flex px-2 py-2 gap-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300" onClick={() => openModal('modalAnotacoes')}>
-                            <PlusCircle size={20} />
-                            Adicionar anotação
-                        </button>
-                    </div>
                     <div className="container-central-notes">
                         <div className="container-notes-right">
-                            {filteredNotas.length === 0 ? (
-                                <p className="text-center text-sm font-semibold text-[#524B4B]">Nenhuma anotação encontrada.</p>
-                            ) : (
-                                filteredNotas.map((nota) => (
-                                    <NotaCard
-                                        key={nota.id}
-                                        nota={nota}
-                                        categorias={categorias}
-                                        disciplinas={disciplinas}
-                                        onAnotacoesChange={handleAnotacoesChange}
-                                    />
-                                ))
-                            )}
-                        </div>
-                        <div className="container-notes-left">
                             <div className="container-categoria-disciplina">
                                 <div className="flex justify-between items-center">
                                     <p className="title-p">Categorias</p>
-                                    <button className="flex p-1 gap-2 text-sm font-semibold rounded-full bg-[#FFE500] shadow-sm hover:shadow-md duration-300" onClick={() => openModal('modalCategorias')}>
+                                    <button
+                                        className="flex p-1 gap-2 text-sm font-semibold rounded-full bg-[#FFE500] shadow-sm hover:shadow-md duration-300"
+                                        onClick={() => openModal('modalCategorias')}>
                                         <Plus size={20} />
                                     </button>
                                 </div>
                                 <div className="w-full h-px bg-black opacity-10 my-2"></div>
                                 <div className="flex flex-wrap gap-1">
                                     <div className="flex flex-wrap gap-1 text-xs font-semibold text-[#524B4B]">
-                                        {categorias.length == 0 ? 'Você não possui categorias cadastradas.' :
+                                        {categorias.length === 0 ? 'Você não possui categorias cadastradas.' :
                                             (categorias.map((categoria) => (
-                                                <CategoriaCard
-                                                    key={categoria.id}
-                                                    categoria={categoria}
-                                                    categoriaSelecionada={categoriaSelecionada === categoria}
-                                                    onClick={() => handleCategoriaSelect(categoria)}
+                                                <CategoriaCard key={categoria.id} categoria={categoria}
+                                                    categoriaSelecionada={categoriaSelecionada === categoria} onClick={() =>
+                                                        handleCategoriaSelect(categoria)}
                                                     filter={true}
                                                 />
                                             )))
@@ -138,50 +112,73 @@ export default function Anotacoes() {
                             <div className="container-categoria-disciplina">
                                 <div className="flex justify-between items-center">
                                     <p className="title-p">Disciplinas</p>
-                                    <button className="flex p-1 gap-2 text-sm font-semibold rounded-full bg-[#FFE500] shadow-sm hover:shadow-md duration-300" onClick={() => openModal('modalDisciplinas')}>
+                                    <button
+                                        className="flex p-1 gap-2 text-sm font-semibold rounded-full bg-[#FFE500] shadow-sm hover:shadow-md duration-300"
+                                        onClick={() => openModal('modalDisciplinas')}>
                                         <Plus size={20} />
                                     </button>
                                 </div>
                                 <div className="w-full h-px bg-black opacity-10 my-2"></div>
                                 <div className="flex flex-wrap gap-1 text-xs font-semibold text-[#524B4B]">
-                                    {disciplinas.length == 0 ? 'Você não possui disciplinas cadastradas.' :
+                                    {disciplinas.length === 0 ? 'Você não possui disciplinas cadastradas.' :
                                         (disciplinas.map((disciplina) => (
-                                            <DisciplinaCard
-                                                key={disciplina.id}
-                                                disciplina={disciplina}
-                                                disciplinaSelecionada={disciplinaSelecionada === disciplina}
-                                                filter={true}
-                                                onClick={() => handleDisciplinaSelect(disciplina)}
+                                            <DisciplinaCard key={disciplina.id} disciplina={disciplina}
+                                                disciplinaSelecionada={disciplinaSelecionada === disciplina} filter={true} onClick={() =>
+                                                    handleDisciplinaSelect(disciplina)}
                                             />
                                         )))
                                     }
                                 </div>
                             </div>
                         </div>
+                        <div className="container-notes-left">
+                            <div className="header-page flex justify-between">
+                                <h1 className="font-semibold text-2xl text-[#524B4B]">Minhas Anotações</h1>
+                                <div className=" w-2/3 flex justify-center items-center">
+                                    <input type="text" value={searchTerm} onChange={handleSearch} className="p-2 text-sm w-2/3 rounded-xl"
+                                        placeholder="Pesquisar anotação" />
+                                    <MagnifyingGlass size={20} className="-translate-x-7" />
+                                </div>
+                                <button
+                                    className="flex px-2 py-2 gap-2 text-sm font-semibold rounded-md bg-[#FFE500] shadow-sm hover:shadow-md duration-300"
+                                    onClick={() => openModal('modalAnotacoes')}>
+                                    <PlusCircle size={20} />
+                                    Adicionar anotação
+                                </button>
+                            </div>
+                            {filteredNotas.length === 0 ? (
+                                <p className="text-center text-sm font-semibold text-[#524B4B]">Nenhuma anotação encontrada.</p>
+                            ) : (
+                                filteredNotas.map((nota) => (
+                                    <NotaCard key={nota.id} nota={nota} categorias={categorias} disciplinas={disciplinas}
+                                        onAnotacoesChange={handleAnotacoesChange} />
+                                ))
+                            )}
+                        </div>
+                        {showModal === 'modalAnotacoes' && (
+                            <AddNotaModal
+                                showModal={showModal === 'modalAnotacoes'}
+                                setShowModal={setShowModal}
+                                categorias={categorias}
+                                disciplinas={disciplinas}
+                                onAnotacoesChange={handleAnotacoesChange}
+                            />
+                        )}
+                        {showModal === 'modalCategorias' && (
+                            <AddCategorias
+                                showModal={showModal === 'modalCategorias'}
+                                setShowModal={setShowModal}
+                                onCategoriaChange={handleAnotacoesChange}
+                            />
+                        )}
+                        {showModal === 'modalDisciplinas' && (
+                            <AddDisciplinas
+                                showModal={showModal === 'modalDisciplinas'}
+                                setShowModal={setShowModal}
+                                onDisciplinasChange={handleAnotacoesChange}
+                            />
+                        )}
                     </div>
-                    {showModal === 'modalAnotacoes' && (
-                        <AddNotaModal
-                            showModal={showModal === 'modalAnotacoes'}
-                            setShowModal={setShowModal}
-                            categorias={categorias}
-                            disciplinas={disciplinas}
-                            onAnotacoesChange={handleAnotacoesChange}
-                        />
-                    )}
-                    {showModal === 'modalCategorias' && (
-                        <AddCategorias
-                            showModal={showModal === 'modalCategorias'}
-                            setShowModal={setShowModal}
-                            onCategoriaChange={handleAnotacoesChange}
-                        />
-                    )}
-                    {showModal === 'modalDisciplinas' && (
-                        <AddDisciplinas
-                            showModal={showModal === 'modalDisciplinas'}
-                            setShowModal={setShowModal}
-                            onDisciplinasChange={handleAnotacoesChange}
-                        />
-                    )}
                 </>
             }
         </div>

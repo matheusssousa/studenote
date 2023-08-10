@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 import { useAuth } from "../../context/Authcontext";
-import { CaretDown, House, Note, BookmarksSimple, BookBookmark } from "@phosphor-icons/react";
+import { CaretDown, House, Note, BookmarksSimple, BookBookmark, GlobeSimple } from "@phosphor-icons/react";
 import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
@@ -13,6 +13,7 @@ export default function Navbar() {
         { name: "Anotações", link: "/notas", icon: Note },
         { name: "Categorias", link: "/categorias", icon: BookmarksSimple },
         { name: "Disciplinas", link: "/disciplinas", icon: BookBookmark },
+        { name: "Comunidade", link: "/comunidade", icon: GlobeSimple },
     ];
 
     const LogoutUser = async (event) => {
@@ -63,7 +64,7 @@ export default function Navbar() {
                     Olá, {userData.name} <p><CaretDown size={15} className={!openMenuUser ? 'duration-300' : 'rotate-180 duration-300'} /></p>
                 </button>
                 <div className={!openMenuUser ? 'hidden' : 'absolute w-44 rounded-xl p-4 bg-[#F3F2F2] shadow-md text-sm font-semibold gap-2 flex flex-col'}>
-                    <button className="hover:text-[#524B4B] hover:underline duration-300 w-full">Conta</button>
+                    <a className="hover:text-[#524B4B] hover:underline duration-300 w-full text-center" href="/conta">Conta</a>
                     <button onClick={LogoutUser} className="hover:text-[#524B4B] hover:underline duration-300 w-full">Sair</button>
                 </div>
             </div>
