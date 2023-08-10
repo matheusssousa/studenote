@@ -1,5 +1,5 @@
 import { X } from "@phosphor-icons/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AddCategorias from "../ModalCategorias";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -69,7 +69,7 @@ export default function CategoriaCard({ categoria, onClick, categoriaSelecionada
                     <button onClick={() => modalType('Delete')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}` }}>
                         <TrashSimple size={20} />
                     </button>
-                    <button onClick={() => modalType('Edit')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}`}}>
+                    <button onClick={() => modalType('Edit')} className="font-semibold text-sm drop-shadow-md hover:text-white duration-300" style={{ color: `${categoria.cor}` }}>
                         <PencilSimple size={20} />
                     </button>
                 </div>
