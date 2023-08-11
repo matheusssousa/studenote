@@ -21,7 +21,7 @@ const MyRoutes = () => {
         dark: "bg-white-600 font-gray-300",
     };
 
-    useEffect(() => {   
+    useEffect(() => {
 
     }, [location]);
 

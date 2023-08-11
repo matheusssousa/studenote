@@ -6,12 +6,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import MultiSelect from "../../components/MultiSelect";
 
 const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, onAnotacoesChange }) => {
-    // console.log(nota)
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [date, setDate] = useState('');
     const [disciplina, setDisciplina] = useState('');
     const [categoriaSelect, setCategoriaSelect] = useState([]);
+    const [community, setCommunity] = useState(0);
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
@@ -46,6 +46,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, 
                 data_prazo: date,
                 disciplina_id: disciplina,
                 categorias: categoriasSelectIds,
+                annotation_community: community,
             })
                 .then(function (response) {
                     console.log(response);
@@ -58,13 +59,13 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, 
                     setDate('');
                     setDisciplina('');
                     setCategoriaSelect([]);
+                    setCommunity(0);
 
                     setShowModal(false);
                     onAnotacoesChange();
                 })
                 .catch(function (error) {
-                    console.log(error.response.data);
-                    // console.error(error);
+                    console.log(error);
                     toast.error("Erro ao cadastrar nota. Verifique os dados e tente novamente.", {
                         position: toast.POSITION.TOP_RIGHT,
                         theme: "colored"
@@ -80,6 +81,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, 
                 data_prazo: date,
                 disciplina_id: disciplina,
                 categorias: categoriasSelectIds,
+                annotation_community: community,
             })
                 .then(function (response) {
                     console.log(response);
@@ -92,6 +94,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, 
                     setDate('');
                     setDisciplina('');
                     setCategoriaSelect([]);
+                    setCommunity(0);
 
                     setShowModal(false);
                     onAnotacoesChange();
@@ -122,7 +125,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, 
                                 onChange={(event) => setNome(event.target.value)}
                                 className="input-name"
                                 placeholder="Digite o título da sua anotação..." />
-                            <button onClick={() => setShowModal(false)} className="text-[#524B4B] duration-300"><X size={25} className="hover:drop-shadow-lg"/></button>
+                            <button onClick={() => setShowModal(false)} className="text-[#524B4B] duration-300"><X size={25} className="hover:drop-shadow-lg" /></button>
                         </div>
                         <div className="container-top-form">
                             <div className="w-full justify-between flex">
@@ -145,6 +148,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, 
                                         <option value={disciplina.id} key={disciplina.id}>{disciplina.nome}</option>
                                     ))}
                                 </select>
+                                <button onClick={() => setCommunity(1)} type="button">Comunidade</button>
                             </div>
                             <div className="h-px w-full my-1 bg-[#524B4B]"></div>
                             <textarea
@@ -155,7 +159,7 @@ const AddNotaModal = ({ showModal, setShowModal, categorias, disciplinas, nota, 
                                 onChange={(event) => setDescricao(event.target.value)}
                                 className="input-text"
                                 placeholder="Digite o conteúdo aqui..."></textarea>
-                            <div className="button-add-categoria">
+                            <div className="add-categoria">
                                 <MultiSelect categorias={categorias} categoriaSelect={categoriaSelect} setCategoriaSelect={setCategoriaSelect} />
                             </div>
                         </div>

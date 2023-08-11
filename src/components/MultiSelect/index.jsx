@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ListCategorias from "../ListCategorias";
-import { Plus } from "@phosphor-icons/react";
 
 export default function MultiSelect({ categorias, categoriaSelect, setCategoriaSelect }) {
     const [selectedCategoria, setSelectedCategoria] = useState('');
@@ -29,9 +28,6 @@ export default function MultiSelect({ categorias, categoriaSelect, setCategoriaS
 
     return (
         <div className="w-full">
-            <div className="button-select-categoria">
-                <Plus size={20} />
-            </div>
             <select
                 name="categoria"
                 id="select"

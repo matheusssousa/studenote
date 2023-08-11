@@ -6,11 +6,11 @@
 
 body{
     font-family: 'Montserrat', sans-serif;
-    @apply w-full h-full bg-[#F3F2F2] 
+    @apply w-full h-full bg-[#F3F2F2]
 }
 
 :root{
-    @apply min-h-screen
+    @apply min-h-screen 
 }
 
 .body-page{
@@ -76,21 +76,9 @@ body{
     @apply bg-white text-sm text-[#524B4B] font-semibold bg-opacity-90
 }
 
-.button-add-categoria{
-    @apply absolute -translate-x-12
-    hover:-translate-x-[13.9rem] duration-500
+.add-categoria{
+    @apply absolute -translate-x-[13.9rem]
 }
 .select-categorias{
-    @apply hidden p-2 bg-white rounded-l-full bg-opacity-95 text-sm text-[#524B4B] font-semibold 
-}
-.button-select-categoria{
-    @apply w-8 h-8 flex items-center justify-center bg-white rounded-l-full bg-opacity-95
-}
-
-.button-add-categoria:hover .button-select-categoria{
-    @apply hidden
-}
-
-.button-add-categoria:hover .select-categorias{
-    @apply block
+    @apply p-2 bg-white rounded-l-full bg-opacity-95 text-sm text-[#524B4B] font-semibold 
 }
