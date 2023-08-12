@@ -1,5 +1,5 @@
 .body-login{
-    @apply bg-[#FFE500] h-screen
+    @apply bg-[#FFE500] h-screen dark:bg-slate-950
     flex justify-evenly items-center
 }
 
