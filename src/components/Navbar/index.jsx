@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import './styles.css';
 import { useAuth } from "../../context/Authcontext";
-import { CaretDown, House, Note, BookmarksSimple, BookBookmark, GlobeSimple } from "@phosphor-icons/react";
+import { CaretDown, House, Note, BookmarksSimple, BookBookmark, GlobeSimple, Moon, Sun } from "@phosphor-icons/react";
 import { NavLink } from 'react-router-dom';
+import { useTheme } from "../../hooks/useTheme";
 
 export default function Navbar() {
     const { Logout, userData } = useAuth();
     const [openMenuUser, setOpenMenuUser] = useState(false);
+    const { theme, setTheme } = useTheme();
 
     const menus = [
         { name: "Página Inicial", link: "/home", icon: House },
@@ -66,6 +68,9 @@ export default function Navbar() {
                 <div className={!openMenuUser ? 'hidden' : 'absolute w-44 rounded-xl p-4 bg-[#F3F2F2] shadow-md text-sm font-semibold gap-2 flex flex-col'}>
                     <a className="hover:text-[#524B4B] hover:underline duration-300 w-full text-center" href="/conta">Conta</a>
                     <button onClick={LogoutUser} className="hover:text-[#524B4B] hover:underline duration-300 w-full">Sair</button>
+                </div>
+                <div>
+                    {theme === "light" ? <Moon size={25} onClick={() => setTheme("dark")} className="buttonmoon" /> : <Sun size={25} onClick={() => setTheme("light")} className="buttonsun" />}
                 </div>
             </div>
         </div>
